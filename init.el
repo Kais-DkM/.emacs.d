@@ -36,6 +36,8 @@
 
 (require 'req-package)
 
+(req-package paradox)
+
 (req-package undo-tree
   :config
   (load-binding "undo-tree")
@@ -49,6 +51,10 @@
   :config
   (load-binding "tabbar")
   (tabbar-mode t))
+
+(req-package windmove
+  :config
+  (load-binding "windmove"))
 
 (req-package-finish)
 
