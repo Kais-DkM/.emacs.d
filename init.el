@@ -28,6 +28,12 @@
 (load (f-join init-dir "bindings" "init.el"))
 (add-to-list 'load-path (f-join init-dir "scripts"))
 
+;; turn on evil mode (evil keymap is critical for this setting, so we manually turn it on)
+(require 'evil)
+(load-binding "evil")
+(evil-mode t)
+(setq evil-move-beyond-eol t)
+
 (setq gc-cons-threshold 20000000)
 
 (setq inhibit-startup-message t)
@@ -47,8 +53,7 @@
       version-control t
       delete-old-versions t
       kept-new-versions 6
-      kept-old-versions 2
-      )
+      kept-old-versions 2)
 
 (setq scroll-step 1)
 (setq frame-resize-pixelwise t)
