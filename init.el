@@ -67,6 +67,17 @@
 	'((t . ivy--regex-fuzzy)))
   (setq ivy-count-format "(%d/%d) "))
 
+(req-package company
+  :config
+  (load-binding "company")
+  (setq company-idle-delay 0.1)
+  (global-company-mode t))
+
+(req-package company-flx
+  :require company flx
+  :config
+  (company-flx-mode t))
+
 (req-package-finish)
 
 (setq gc-cons-threshold 20000000)
