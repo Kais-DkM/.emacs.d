@@ -56,6 +56,17 @@
   :config
   (load-binding "windmove"))
 
+(req-package flx)
+
+(req-package ivy
+  :require flx
+  :config
+  (load-binding "ivy")
+  (ivy-mode 1)
+  (setq ivy-re-builders-alist
+	'((t . ivy--regex-fuzzy)))
+  (setq ivy-count-format "(%d/%d) "))
+
 (req-package-finish)
 
 (setq gc-cons-threshold 20000000)
