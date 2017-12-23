@@ -34,6 +34,24 @@
 (evil-mode t)
 (setq evil-move-beyond-eol t)
 
+(require 'req-package)
+
+(req-package undo-tree
+  :config
+  (load-binding "undo-tree")
+  (global-undo-tree-mode t))
+
+(req-package help-fns+
+  :config
+  (load-binding "help-fns-plus"))
+
+(req-package tabbar
+  :config
+  (load-binding "tabbar")
+  (tabbar-mode t))
+
+(req-package-finish)
+
 (setq gc-cons-threshold 20000000)
 
 (setq inhibit-startup-message t)
