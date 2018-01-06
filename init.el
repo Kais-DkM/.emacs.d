@@ -59,6 +59,28 @@
   :config
   (load-binding "windmove"))
 
+;; TODO : disable linum on specified modes
+(req-package linum
+  :config
+  (global-linum-mode t))
+
+(req-package hlinum
+  :require linum
+  :config
+  (hlinum-activate))
+
+(req-package hl-line
+  :config
+  (global-hl-line-mode t))
+
+(req-package whitespace
+  :config
+  (global-whitespace-mode t)
+  (setq whitespace-style
+	'(face
+	  tabs lines-tail trailing space-before-tab indentation tab-mark))
+  (setq whitespace-global-modes '(not help-mode messages-buffer-mode)))
+
 (req-package flx)
 
 (req-package ivy
