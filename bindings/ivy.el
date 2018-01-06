@@ -10,7 +10,7 @@
 (define-key ivy-minibuffer-map (kbd "ESC ESC") 'minibuffer-keyboard-quit)
 (define-key ivy-minibuffer-map (kbd "RET") 'ivy-done)
 (define-key ivy-minibuffer-map (kbd "C-RET") 'ivy-immediate-done)
-(define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial)
+(define-key ivy-minibuffer-map (kbd "TAB") 'ivy-partial-or-done)
 (define-key ivy-minibuffer-map (kbd "<left>") 'backward-char)
 (define-key ivy-minibuffer-map (kbd "M-s") 'backward-char)
 (define-key ivy-minibuffer-map (kbd "<right>") 'forward-char)

@@ -36,6 +36,9 @@
 
 (require 'req-package)
 
+(req-package minimap
+  :loader :path)
+
 (req-package paradox)
 
 (req-package undo-tree
@@ -77,7 +80,6 @@
   :require company flx
   :config
   (company-flx-mode t))
-
 (req-package-finish)
 
 (setq gc-cons-threshold 20000000)
