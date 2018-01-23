@@ -34,12 +34,17 @@
 (evil-mode t)
 (setq evil-move-beyond-eol t)
 
+(line-number-mode t)
+(column-number-mode t)
+
 (require 'req-package)
 
 (req-package minimap
   :loader :path)
 
-(req-package paradox)
+(req-package paradox
+  :config
+  (paradox-enable))
 
 (req-package undo-tree
   :config
@@ -58,6 +63,15 @@
 (req-package windmove
   :config
   (load-binding "windmove"))
+
+;; TODO : add key bindings
+(req-package magit
+  :config
+  (load-binding "magit"))
+
+(req-package magithub
+  :require magit
+  (load-binding "magithub"))
 
 ;; TODO : disable linum on specified modes
 (req-package linum
@@ -80,6 +94,23 @@
 	'(face
 	  tabs lines-tail trailing space-before-tab indentation tab-mark))
   (setq whitespace-global-modes '(not help-mode messages-buffer-mode)))
+
+(req-package highlight-parentheses
+  :config (global-highlight-parentheses-mode t))
+
+(req-package electric
+  :config
+  (electric-pair-mode t)
+  (electric-layout-mode t))
+
+(req-package autorevert
+  :config
+  (global-auto-revert-mode t))
+
+;; TODO : add configurations
+(req-package anzu
+  :config
+  (global-anzu-mode t))
 
 (req-package flx)
 
