@@ -81,7 +81,10 @@
 (satan-define-key nil "h w" 'kill-this-buffer)
 (satan-define-key nil "C-SPC" 'set-mark-command)
 (satan-define-key nil "v" 'kill-ring-save)
+(satan-define-key nil "V" 'kill-region)
 (satan-define-key nil "n" 'yank)
+(satan-define-key nil "c" 'isearch-backward)
+(satan-define-key nil "m" 'isearch-forward)
 
 (satan-define-key nil "h 1" 'delete-other-windows)
 

@@ -135,6 +135,10 @@
   :require company flx
   :config
   (company-flx-mode t))
+
+(req-package yasnippet
+  :require cl-lib)
+
 (req-package-finish)
 
 (setq gc-cons-threshold 20000000)
