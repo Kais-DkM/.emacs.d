@@ -27,6 +27,8 @@
 (setq init-dir (f-dirname (f-this-file)))
 (load (f-join init-dir "bindings" "init.el"))
 (add-to-list 'load-path (f-join init-dir "scripts"))
+(load (f-join init-dir "themes" "init.el"))
+(load-theme 'base t)
 
 ;; turn on evil mode (evil keymap is critical for this setting, so we manually turn it on)
 (require 'evil)

@@ -1,0 +1,20 @@
+(setq custom-theme-directory (f-dirname (f-this-file)))
+
+(defun rgba-to-rgb (rgba background)
+  (cl-assert (= (length rgba) 9) nil "color format error")
+  (cl-assert (= (length background) 7) nil "color format error")
+  (cl-assert (= (elt rgba 0) ?#) nil "color format error")
+  (cl-assert (= (elt background 0) ?#) nil "color format error")
+  (let ((r (string-to-number (substring rgba 1 3) 16))
+	(g (string-to-number (substring rgba 3 5) 16))
+	(b (string-to-number (substring rgba 5 7) 16))
+	(a (/ (string-to-number (substring rgba 7 9) 16) 255.0))
+	(r-back (string-to-number (substring background 1 3) 16))
+	(b-back (string-to-number (substring background 3 5) 16))
+	(g-back (string-to-number (substring background 5 7) 16)))
+    (format "#%02X%02X%02X"
+	    (+ (* a r) (* (- 1 a) r-back))
+	    (+ (* a g) (* (- 1 a) g-back))
+	    (+ (* a b) (* (- 1 a) b-back)))))
+
+(provide 'themes-init)
