@@ -40,9 +40,7 @@
 (column-number-mode t)
 
 (require 'req-package)
-
-(req-package minimap
-  :loader :path)
+(setq use-package-always-ensure t)
 
 (req-package paradox
   :config
@@ -53,9 +51,9 @@
   (load-binding "undo-tree")
   (global-undo-tree-mode t))
 
-(req-package help-fns+
+(req-package helpful
   :config
-  (load-binding "help-fns-plus"))
+  (load-binding "helpful"))
 
 (req-package tabbar
   :config
@@ -71,9 +69,7 @@
   :config
   (load-binding "magit"))
 
-(req-package magithub
-  :require magit
-  (load-binding "magithub"))
+;; magithub
 
 ;; TODO : disable linum on specified modes
 (req-package linum
@@ -140,6 +136,9 @@
   :require cl-lib)
 
 (req-package-finish)
+
+;; some additional local packages
+(require 'minimap)
 
 (setq gc-cons-threshold 20000000)
 
