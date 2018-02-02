@@ -3,3 +3,5 @@ backup/
 elpa/
 custom.el
 network-security.data
+.emacs.desktop*
+projectile-bookmarks.eld

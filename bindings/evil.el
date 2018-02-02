@@ -13,6 +13,7 @@
 (setq original-global-map global-map)
 (setq global-map (make-sparse-keymap))
 (use-global-map global-map)
+(use-local-map (make-sparse-keymap))
 
 ;;; helper function for defining custom evil keys
 (defun satan-define-key (register-insert key func)

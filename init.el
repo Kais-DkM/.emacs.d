@@ -77,9 +77,7 @@
   (global-linum-mode t))
 
 (req-package hlinum
-  :require linum
-  :config
-  (hlinum-activate))
+  :require linum)
 
 (req-package hl-line
   :config
@@ -89,8 +87,8 @@
   :config
   (global-whitespace-mode t)
   (setq whitespace-style
-	'(face
-	  tabs lines-tail trailing space-before-tab indentation tab-mark))
+ 	'(face
+ 	  tabs lines-tail trailing space-before-tab indentation tab-mark))
   (setq whitespace-global-modes '(not help-mode messages-buffer-mode)))
 
 (req-package highlight-parentheses
@@ -118,7 +116,7 @@
   (load-binding "ivy")
   (ivy-mode 1)
   (setq ivy-re-builders-alist
-	'((t . ivy--regex-fuzzy)))
+ 	'((t . ivy--regex-fuzzy)))
   (setq ivy-count-format "(%d/%d) "))
 
 (req-package company
@@ -134,6 +132,22 @@
 
 (req-package yasnippet
   :require cl-lib)
+
+(req-package perspective
+  :config
+  (persp-mode))
+
+(req-package projectile
+  :require dash pkg-info perspective
+  :config
+  (projectile-global-mode))
+
+(req-package persp-projectile
+  :require perspective projectile)
+
+(req-package desktop
+  :config
+  (desktop-save-mode t))
 
 (req-package-finish)
 
