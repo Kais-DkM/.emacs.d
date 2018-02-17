@@ -43,8 +43,4 @@
  	'((t . ivy--regex-fuzzy)))
   (setq ivy-count-format "(%d/%d) "))
 
-(req-package minimap
-  :loader :path
-  :load-path "~/.emacs.d/scripts/")
-
 (provide 'packages-misc)

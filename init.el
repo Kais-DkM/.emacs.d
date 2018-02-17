@@ -24,7 +24,6 @@
 (require 'f)
 
 (load (f-join user-emacs-directory "bindings" "init.el"))
-(add-to-list 'load-path (f-join user-emacs-directory "scripts"))
 (load (f-join user-emacs-directory "themes" "init.el"))
 (load (f-join user-emacs-directory "packages" "init.el"))
 (load-theme 'base t)
