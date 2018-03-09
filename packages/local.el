@@ -10,6 +10,7 @@
   :load-path "scripts"
   :config
   (load-binding "altistic")
+  (altistic-mode t)
   (add-hook 'minibuffer-setup-hook (lambda ()
 				     (when altistic-ignore-self-insert
 				       (altistic-toggle-self-insert)))))

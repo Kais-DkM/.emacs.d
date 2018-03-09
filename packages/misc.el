@@ -16,7 +16,7 @@
 
 (req-package tabbar
   :config
-  (load-binding "tabbar")
+  (eval-after-load 'tabbar '(load-binding "tabbar"))
   (tabbar-mode t))
 
 (req-package hlinum
@@ -40,7 +40,7 @@
   (load-binding "ivy")
   (ivy-mode 1)
   (setq ivy-re-builders-alist
- 	'((t . ivy--regex-fuzzy)))
+	'((t . ivy--regex-fuzzy)))
   (setq ivy-count-format "(%d/%d) "))
 
 (provide 'packages-misc)

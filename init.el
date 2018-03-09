@@ -18,7 +18,7 @@
 
 (unless package-archive-contents (package-refresh-contents))
 
-(setq package-selected-packages '(req-package evil f s dash))
+(setq package-selected-packages '(req-package f s dash))
 (package-install-selected-packages)
 
 (require 'f)

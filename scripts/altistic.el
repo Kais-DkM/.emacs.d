@@ -1,16 +1,11 @@
 (require 'cl-lib)
 (require 'dash)
 
-(defun altistic-test-func1 () (interactive) (message "test func 1"))
-(defun altistic-test-func2 () (interactive) (message "test func 2"))
-(defun altistic-test-func3 () (interactive) (message "test func 3"))
-
 (defvar altistic-map
   (let ((map (make-sparse-keymap)))
     (let ((target-char ?a))
       (while (<= target-char ?z)
-	(let ((literal-char (help-key-description (vector target-char) nil)))
-	  (define-key map (kbd literal-char) (kbd (concat "M-" literal-char))))
+	(define-key map (vector target-char) 'altistic-process-key)
 	(setq target-char (1+ target-char))))
     map)
   "Keymap for altistic mode")
@@ -32,7 +27,7 @@
        ;; A-Z
        ((and (>= last-char ?A) (<= last-char ?Z)) t)
        ;; a-z
-       ((and (>= last-char ?a) (<= last-char ?z)) t)
+       ((and (>= last-char ?a) (<= last-char ?z)) nil)
        ;; other cases
        (t nil)))))
 
@@ -44,8 +39,8 @@
 			  (- (length (this-command-keys-vector)) 1)))
 	 (binding (altistic-lookup-command first-key nil)))
     (setf (alist-get 'altistic-mode minor-mode-map-alist) altistic-map)
-    (let ((binding-key (cdr binding))
-	  (binding-command (car binding)))
+    (let ((binding-key (car binding))
+	  (binding-command (cdr binding)))
       (if binding-command
 	  (progn
 	    (setq
@@ -97,7 +92,5 @@
   :global t
   :lighter " Altistic"
   :keymap altistic-map)
-
-(define-key altistic-map (kbd "C-<return>") 'altistic-process-key)
 
 (provide 'altistic)

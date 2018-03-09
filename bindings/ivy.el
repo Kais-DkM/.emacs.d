@@ -1,8 +1,10 @@
-(require 'bindings-evil)
 (require 'ivy)
 
 ;;(setq ivy-minibuffer-map (make-sparse-keymap))
-(substitute-key-definition 'self-insert-command 'self-insert-command ivy-minibuffer-map original-global-map) 
+(substitute-key-definition 'self-insert-command
+			   'self-insert-command
+			   ivy-minibuffer-map
+			   original-global-map)
 (define-key ivy-minibuffer-map (kbd "DEL") 'ivy-backward-delete-char)
 (define-key ivy-minibuffer-map (kbd "M-t") 'ivy-backward-delete-char)
 (define-key ivy-minibuffer-map (kbd "<delete>") 'ivy-delete-char)

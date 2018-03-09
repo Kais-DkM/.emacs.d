@@ -1,9 +1,8 @@
-(require 'bindings-evil)
 (require 'windmove)
 
-(satan-define-key nil "J" 'windmove-left)
-(satan-define-key nil "L" 'windmove-right)
-(satan-define-key nil "I" 'windmove-up)
-(satan-define-key nil "K" 'windmove-down)
+(global-set-key (kbd "M-J") 'windmove-left)
+(global-set-key (kbd "M-L") 'windmove-right)
+(global-set-key (kbd "M-I") 'windmove-up)
+(global-set-key (kbd "M-K") 'windmove-down)
 
 (provide 'bindings-windmove)
