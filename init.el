@@ -20,6 +20,12 @@
 
 (require 'f)
 
+(setq inhibit-startup-screen t)
+(line-number-mode t)
+(column-number-mode t)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+
 (let ((backup-dir (f-join user-emacs-directory "backup")))
   (unless (f-exists? backup-dir) (f-mkdir backup-dir))
   (setq backup-directory-alist `((".*" . ,backup-dir))))
