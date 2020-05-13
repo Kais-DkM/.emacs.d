@@ -3,7 +3,6 @@
 (setq load-prefer-newer t)
 
 (require 'package)
-
 (setq package-archives
       '(("melpa-stable" . "https://stable.melpa.org/packages/")
 	("melpa" . "https://melpa.org/packages/")
@@ -15,3 +14,21 @@
 (package-initialize)
 
 (unless package-archive-contents (package-refresh-contents))
+
+(setq package-selected-packages '(f))
+(package-install-selected-packages)
+
+(require 'f)
+
+(let ((backup-dir (f-join user-emacs-directory "backup")))
+  (unless (f-exists? backup-dir) (f-mkdir backup-dir))
+  (setq backup-directory-alist `((".*" . ,backup-dir))))
+(let ((autosave-dir (f-slash (f-join user-emacs-directory "autosave"))))
+  (unless (f-exists? autosave-dir) (f-mkdir autosave-dir))
+  (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
+  (setq auto-save-list-file-prefix (f-join autosave-dir ".saves")))
+(setq backup-by-copying t
+      version-control t
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2)
