@@ -16,7 +16,7 @@
 
 (unless package-archive-contents (package-refresh-contents))
 
-(setq package-selected-packages '(f req-package))
+(setq package-selected-packages '(dash f req-package))
 (package-install-selected-packages)
 
 (require 'f)
@@ -28,17 +28,16 @@
     (cond ((f-directory? file) (load-directory file))
 	  ((f-ext? file "el") (load file)))))
 
-(setq use-package-always-ensure t)
-
-(load-directory (f-join user-emacs-directory "packages"))
-
-(req-package-finish)
-
 (setq inhibit-startup-screen t)
 (line-number-mode t)
 (column-number-mode t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(load (f-join user-emacs-directory "moderator.el"))
+(load-directory (f-join user-emacs-directory "packages"))
+
+(setq use-package-always-ensure t)
+(req-package-finish)
 
 (let ((backup-dir (f-slash (f-join user-emacs-directory "backup"))))
   (unless (f-exists? backup-dir) (f-mkdir backup-dir))
