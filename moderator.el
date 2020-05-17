@@ -1,7 +1,7 @@
 (require 'dash)
 (require 'subr-x)
 
-(setq moderator-mode 'original)
+(setq moderator-mode-stack '(original))
 (setq original-global-map global-map)
 (setq navigate-global-map (make-sparse-keymap))
 (setq insert-global-map (make-sparse-keymap))
@@ -9,17 +9,29 @@
 
 (setq moderator-prefix "C-")
 
+(defun moderator-get-mode ()
+  (car moderator-mode-stack))
+
 (defun moderator-set-mode (mode)
-  (setq moderator-mode mode)
+  (setcar moderator-mode-stack mode)
   (cond ((eq mode 'navigate) (use-global-map navigate-global-map))
 	((eq mode 'insert) (use-global-map insert-global-map))
 	((eq mode 'original) (use-global-map original-global-map))))
 
 (defun moderator-toggle-mode ()
   (interactive)
-  (cond ((eq moderator-mode 'navigate) (moderator-set-mode 'insert))
-	((eq moderator-mode 'insert) (moderator-set-mode 'navigate))
-	((eq moderator-mode 'original) (moderator-set-mode 'navigate))))
+  (let ((moderator-mode (moderator-get-mode)))
+    (cond ((eq moderator-mode 'navigate) (moderator-set-mode 'insert))
+	  ((eq moderator-mode 'insert) (moderator-set-mode 'navigate))
+	  ((eq moderator-mode 'original) (moderator-set-mode 'navigate)))))
+
+(defun moderator-push-mode (mode)
+  (push mode moderator-mode-stack)
+  (moderator-set-mode mode))
+
+(defun moderator-pop-mode ()
+  (pop moderator-mode-stack)
+  (moderator-set-mode (moderator-get-mode)))
 
 (defun moderator--generate-key (prefix keys)
   (apply '-table-flat
@@ -47,6 +59,10 @@
 (defun moderator-set-special-key (key command)
   (moderator-set-key key command t))
 
+;; Automatically switch to insert mode on some modes
+(add-hook 'minibuffer-setup-hook (lambda () (moderator-push-mode 'insert)))
+(add-hook 'minibuffer-exit-hook (lambda () (moderator-pop-mode)))
+
 ;; Bind keys for inserting characters
 (map-keymap (lambda (event value)
 	      (when (eq value 'self-insert-command)
@@ -70,10 +86,14 @@
 (moderator-set-special-key "<end>" 'move-end-of-line)
 (moderator-set-special-key "<prior>" 'scroll-down)
 (moderator-set-special-key "<next>" 'scroll-up)
+(moderator-set-special-key "<escape>" 'keyboard-escape-quit)
 
 ;; Bind mode toggle keys
 (moderator-set-key "k" 'moderator-toggle-mode)
 (moderator-set-key "s" 'moderator-toggle-mode)
+
+;; Bind commands
+(moderator-set-key "SPC" 'execute-extended-command)
 
 ;; Change to navigate mode
 (moderator-set-mode 'navigate)
