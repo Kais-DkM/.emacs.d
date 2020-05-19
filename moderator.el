@@ -39,31 +39,33 @@
   (pop moderator-mode-stack)
   (moderator-set-mode (moderator-get-mode)))
 
-(defun moderator--generate-key (prefix keys)
+(defun moderator--generate-key (keys)
   (apply '-table-flat
 	 (lambda (&rest keys) (string-join keys " "))
-	 (--map (list it (concat prefix it)) keys)))
+	 (--map (list it (concat moderator-prefix it)) keys)))
 
-(defun moderator-set-key (key command &optional is-special)
-  ;; Show a warning if `moderator-prefix` is used
+(defun moderator--check-prefix (key)
   (when (string-match-p (regexp-quote moderator-prefix) key)
     (message "\"%s\" is not allowed for moderator key sequence! [%s]"
-	     moderator-prefix key))
-  ;; Calculate all combinations of keys with and without the modifier
+	     moderator-prefix key)))
+
+(defun moderator-set-key (key command)
+  (moderator--check-prefix key)
   (let* ((key-list (split-string key))
-	 (full-keys (moderator--generate-key moderator-prefix key-list))
+	 (full-keys (moderator--generate-key key-list))
 	 (modified-first-key (concat moderator-prefix (car key-list)))
-	 (partial-keys (moderator--generate-key moderator-prefix
-						(cdr key-list))))
+	 (partial-keys (moderator--generate-key (cdr key-list))))
     (--map (define-key navigate-global-map (kbd it) command) full-keys)
     (--map (define-key insert-global-map (kbd it) command)
-	   (cond (is-special full-keys)
-		 ((null partial-keys) (list modified-first-key))
+	   (cond ((null partial-keys) (list modified-first-key))
 		 (t (--map (concat modified-first-key " " it)
 			   partial-keys))))))
 
 (defun moderator-set-special-key (key command)
-  (moderator-set-key key command t))
+  (moderator--check-prefix key)
+  (let ((full-keys (moderator--generate-key (split-string key))))
+    (--map (define-key navigate-global-map (kbd it) command) full-keys)
+    (--map (define-key insert-global-map (kbd it) command) full-keys)))
 
 ;; Automatically switch to insert mode on some modes
 (add-hook 'minibuffer-setup-hook (lambda () (moderator-push-mode 'insert)))
