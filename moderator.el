@@ -14,9 +14,15 @@
 
 (defun moderator-set-mode (mode)
   (setcar moderator-mode-stack mode)
-  (cond ((eq mode 'navigate) (use-global-map navigate-global-map))
-	((eq mode 'insert) (use-global-map insert-global-map))
-	((eq mode 'original) (use-global-map original-global-map))))
+  (cond ((eq mode 'navigate)
+	 (use-global-map navigate-global-map)
+	 (setq-default cursor-type 'box))
+	((eq mode 'insert)
+	 (use-global-map insert-global-map)
+	 (setq-default cursor-type 'bar))
+	((eq mode 'original)
+	 (use-global-map original-global-map)
+	 (setq-default cursor-type t))))
 
 (defun moderator-toggle-mode ()
   (interactive)
