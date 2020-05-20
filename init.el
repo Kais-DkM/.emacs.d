@@ -33,6 +33,8 @@
 (column-number-mode t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
+(set-scroll-bar-mode 'right)
+
 (load (f-join user-emacs-directory "moderator.el"))
 (load-directory (f-join user-emacs-directory "packages"))
 
@@ -51,6 +53,10 @@
       delete-old-versions t
       kept-new-versions 6
       kept-old-versions 2)
+
+(setq custom-theme-directory (f-join user-emacs-directory "themes"))
+(load-directory custom-theme-directory)
+(load-theme 'remagpie t)
 
 (setq custom-file (f-join user-emacs-directory "custom.el"))
 (load custom-file 'noerror)
